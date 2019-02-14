@@ -1,9 +1,10 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "license": "MIT",
   "dependencies": {
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "yargs": "^13.1.0"
   }
 }
