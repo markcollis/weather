@@ -1,9 +1,10 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "app-promise.js",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "request": "^2.88.0",
     "yargs": "^13.1.0"
   }

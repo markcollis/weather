@@ -14,12 +14,12 @@ const { argv } = yargs
   .help()
   .alias('help', 'h');
 
-geocode.geocodeAddress(argv.address, (errorMessage, results) => {
-  if (errorMessage) {
-    console.log(errorMessage);
+geocode.geocodeAddress(argv.address, (errorMessageGeocode, resultsGeocode) => {
+  if (errorMessageGeocode) {
+    console.log(errorMessageGeocode);
   } else {
     // console.log(JSON.stringify(results, undefined, 2));
-    const { address, latitude, longitude } = results;
+    const { address, latitude, longitude } = resultsGeocode;
     console.log(`Here is the weather forecast for ${address}.`);
     console.log(` (which is at latitude ${latitude}, longitude ${longitude}.)`);
     weather.getWeather(latitude, longitude, (errorMessageWeather, resultsWeather) => {
