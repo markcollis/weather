@@ -1,7 +1,6 @@
+require('dotenv').config();
 const yargs = require('yargs');
 const axios = require('axios');
-
-const DARKSKY_API_KEY = 'e4d25953366b5737ce54b5f8262c3a7e';
 
 const { argv } = yargs
   .options({
@@ -61,11 +60,15 @@ axios.get(geocodeUrl, {
   const { address, latitude, longitude } = res;
   console.log(`Here is the weather forecast for ${address}.`);
   console.log(` (which is at latitude ${latitude}, longitude ${longitude}.)`);
-  const weatherUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${latitude},${longitude}?units=si`;
+  const weatherUrl = `https://api.darksky.net/forecast/${process.env.DARKSKY_API_KEY}/${latitude},${longitude}?units=si`;
   return axios.get(weatherUrl);
 }).then((resWeather) => {
   const { currently, hourly } = resWeather.data;
-  console.log(`The current temperature is ${currently.temperature}°C, though it feels like ${currently.apparentTemperature}°C.`);
+  if (currently.temperature === currently.apparentTemperature) {
+    console.log(`The current temperature is ${currently.temperature}°C.`);
+  } else {
+    console.log(`The current temperature is ${currently.temperature}°C, though it feels like ${currently.apparentTemperature}°C.`);
+  }
   console.log(`It is currently ${currently.summary.toLowerCase()}.`);
   console.log(`It will be ${hourly.summary.toLowerCase()}`);
 })

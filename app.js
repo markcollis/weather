@@ -18,7 +18,6 @@ geocode.geocodeAddress(argv.address, (errorMessageGeocode, resultsGeocode) => {
   if (errorMessageGeocode) {
     console.log(errorMessageGeocode);
   } else {
-    // console.log(JSON.stringify(results, undefined, 2));
     const { address, latitude, longitude } = resultsGeocode;
     console.log(`Here is the weather forecast for ${address}.`);
     console.log(` (which is at latitude ${latitude}, longitude ${longitude}.)`);
@@ -26,9 +25,12 @@ geocode.geocodeAddress(argv.address, (errorMessageGeocode, resultsGeocode) => {
       if (errorMessageWeather) {
         console.log(errorMessageWeather);
       } else {
-        // console.log(JSON.stringify(results, undefined, 2));
         const { currently, hourly } = resultsWeather;
-        console.log(`The current temperature is ${currently.temperature}°C, though it feels like ${currently.apparentTemperature}°C.`);
+        if (currently.temperature === currently.apparentTemperature) {
+          console.log(`The current temperature is ${currently.temperature}°C.`);
+        } else {
+          console.log(`The current temperature is ${currently.temperature}°C, though it feels like ${currently.apparentTemperature}°C.`);
+        }
         console.log(`It is currently ${currently.summary.toLowerCase()}.`);
         console.log(`It will be ${hourly.summary.toLowerCase()}`);
       }
